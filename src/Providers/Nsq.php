@@ -3,13 +3,14 @@
  * @author Drajat Hasan
  * @email drajathasan20@gmail.com
  * @create date 2022-09-25 15:39:09
- * @modify date 2022-09-25 17:05:46
+ * @modify date 2022-09-26 23:22:07
  * @license GPLv3
  * @desc [description]
  */
 
 namespace Zein\Message\Providers;
 
+use Closure;
 use Exception;
 use Nsq\Writer;
 use Nsq\Envelope;
@@ -38,7 +39,7 @@ class Nsq extends Contract
         }
     }
 
-    public function subscribe(string $topic, string $channel, ?float $timeout = 0)
+    public function subscribe(string $topic, string $channel, Closure $callback, ?float $timeout = 0)
     {
         $generator = $this->subscriber->subscribe($topic, $channel, 5);
         foreach ($generator as $envelope) {
@@ -50,10 +51,7 @@ class Nsq extends Contract
             }
         
             if ($envelope instanceof Envelope) {
-                $payload = $envelope->message->body;
-        
-                echo $payload . PHP_EOL;
-                $envelope->finish(); // Finish a message (indicate successful processing)        
+                $callback($envelope);       
             }
         }
     }
