@@ -3,7 +3,7 @@
  * @author Drajat Hasan
  * @email drajathasan20@gmail.com
  * @create date 2022-09-25 15:39:09
- * @modify date 2022-09-30 18:30:51
+ * @modify date 2022-09-30 19:25:10
  * @license GPLv3
  * @desc [description]
  */
@@ -33,6 +33,16 @@ class Nsq extends Contract
     {
         try {
             $this->writer->pub($topic, $body);
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+            $this->trace = $e->getTrace();
+        }
+    }
+
+    public function multiPublish(string $topic, array $bodies)
+    {
+        try {
+            $this->writer->mpub($topic, $bodies);
         } catch (Exception $e) {
             $this->error = $e->getMessage();
             $this->trace = $e->getTrace();
