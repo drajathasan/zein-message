@@ -3,7 +3,7 @@
  * @author Drajat Hasan
  * @email drajathasan20@gmail.com
  * @create date 2022-09-25 15:39:09
- * @modify date 2022-09-26 23:22:07
+ * @modify date 2022-09-30 18:30:51
  * @license GPLv3
  * @desc [description]
  */
@@ -18,8 +18,8 @@ use Nsq\Subscriber;
 
 class Nsq extends Contract
 {
-    private $writer;
-    private $subscriber;
+    protected $writer;
+    protected $subscriber;
 
     public static function init(array $data)
     {
