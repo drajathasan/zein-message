@@ -3,7 +3,7 @@
  * @author Drajat Hasan
  * @email drajathasan20@gmail.com
  * @create date 2022-09-25 15:39:09
- * @modify date 2022-09-30 19:25:10
+ * @modify date 2022-09-30 19:35:31
  * @license GPLv3
  * @desc [description]
  */
@@ -51,7 +51,7 @@ class Nsq extends Contract
 
     public function subscribe(string $topic, string $channel, Closure $callback, ?float $timeout = 0)
     {
-        $generator = $this->subscriber->subscribe($topic, $channel, 5);
+        $generator = $this->subscriber->subscribe($topic, $channel, $timeout);
         foreach ($generator as $envelope) {
             if (null === $envelope) {
                 // No message received while timeout
